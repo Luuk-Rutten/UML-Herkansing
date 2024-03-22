@@ -11,13 +11,20 @@ namespace UML_Herkansing
     {
        static List<Bestelling> Bestellingen = new List<Bestelling>();
        static List<Maaltijd> Maaltijden = new List<Maaltijd>();
+       // static List<BestellingenPerTafel> bestellingenPerTafel = new List<BestellingenPerTafel>();
+
 
        public string BalieLocatie { get; set; }
+        public static int bestelnr { get; set; }
+        public static int tafelnr { get; set; }
+
 
 
         public Balie(string balielocatie) 
         { 
         BalieLocatie = balielocatie;
+
+      
         }
 
        public bool ErZijnNogBestellingen()
@@ -45,6 +52,8 @@ namespace UML_Herkansing
             {
                Bestelling bestelling = new Bestelling(bestelnr, tafelnr);
                 PlaatsBestelling(bestelling);
+
+              Console.WriteLine(bestellingenPerTafel[i]);
             }
         }
 
@@ -58,7 +67,7 @@ namespace UML_Herkansing
         {
             Bestellingen.Add(b);    
         }
-        public void PlaatsMaaltijd(Maaltijd m)
+        public static void PlaatsMaaltijd(Maaltijd m)
         {
             Maaltijden.Add(m);
         }
@@ -72,6 +81,5 @@ namespace UML_Herkansing
             return Maaltijden.Count;
         }
     }
-
 
 }

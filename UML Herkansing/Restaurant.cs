@@ -14,28 +14,26 @@ namespace UML_Herkansing
         public int AANTALBESTELLINGEN = 20;
         public int MINIMALE_BEREIDINGSTIJD = 750;
         public int MAXIMALE_BEREIDINGSTIJD = 1500;
-        
-        List<BestellingenPerTafel> bestellingenPerTafel = new List<BestellingenPerTafel>();
+        public List<BestellingenPerTafel> bestellingenPerTafel { get; set; }
 
         public Restaurant()
         {
             Balie balie = new Balie("Centrale Hal");
             Kok kok = new Kok(balie);
-
+            GenereerBestellingenPerTafel(AANTALBESTELLINGEN, AANTALTAFELS);
         }
 
         public void start()
         {
             Balie.GenereerBestellingen(bestellingenPerTafel);
 
-            //bezig hier
             if (bestellingenPerTafel.Count > 0)
             {
               Kok.BereidMaaltijden();
-
             }
+            Console.WriteLine("Het aantal bestellingen is:", bestellingenPerTafel.Count);
 
-            return;
+            
         }
 
         public void GenereerBestellingenPerTafel(int AANTALBESTELLINGEN, int AANTALTAFELS)
@@ -45,17 +43,25 @@ namespace UML_Herkansing
                 int randbereidtijd = new Random().Next(MINIMALE_BEREIDINGSTIJD, MAXIMALE_BEREIDINGSTIJD);
                 int tafelnummer = new Random().Next(1, AANTALTAFELS);
                 Bestelling bestelling = new Bestelling(randbereidtijd, tafelnummer);
+                bestellingenPerTafel.Add(bestelling);
+                 
             }
-
         }
-
 
 
 
 
     }
 
-    internal class BestellingenPerTafel
+    public class BestellingenPerTafel
     {
+        public BestellingenPerTafel()
+
+        {
+
+
+        }
+
+
     }
 }
