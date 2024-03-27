@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UML_Herkansing
 {
-    internal class Bestelling 
+    public class Bestelling 
     {
         public int Bestelnummer { get; set; }
         public int Tafelnummer { get; set; }

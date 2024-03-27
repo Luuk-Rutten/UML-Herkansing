@@ -8,44 +8,66 @@ namespace UML_Herkansing
 {
 
 
-    internal class Restaurant
+    public class Restaurant
     {
         public int AANTALTAFELS = 10;
         public int AANTALBESTELLINGEN = 20;
-        public int MINIMALE_BEREIDINGSTIJD = 750;
-        public int MAXIMALE_BEREIDINGSTIJD = 1500;
-        public List<BestellingenPerTafel> bestellingenPerTafel { get; set; }
+ 
+
+        public Balie Balie { get; set; }
+
+        public Kok Kok { get; set; }
+
+        List<Bestelling> bestellingenPerTafel = new List<Bestelling>();
+        public int tafelnummer { get; set; }
 
         public Restaurant()
         {
             Balie balie = new Balie("Centrale Hal");
             Kok kok = new Kok(balie);
             GenereerBestellingenPerTafel(AANTALBESTELLINGEN, AANTALTAFELS);
+
+
         }
 
         public void start()
         {
-            Balie.GenereerBestellingen(bestellingenPerTafel);
+            Balie balie = new Balie("Centrale Hal");
+            Kok kok = new Kok(balie);
+
+            balie.GenereerBestellingen(bestellingenPerTafel);
 
             if (bestellingenPerTafel.Count > 0)
             {
-              Kok.BereidMaaltijden();
-            }
-            Console.WriteLine("Het aantal bestellingen is:", bestellingenPerTafel.Count);
 
-            
+                kok.BereidMaaltijden();
+
+
+            }
+            Console.WriteLine($"Het aantal bestellingen is: {bestellingenPerTafel.Count}");
+
+
         }
 
         public void GenereerBestellingenPerTafel(int AANTALBESTELLINGEN, int AANTALTAFELS)
         {
+
+            Console.WriteLine($"Er worden nu 20 bestellingen gegenereerd door methode Balie.GenereerBestellingen:");
+
+            Bestelling bestelling;
+
             for (var i = 0; i < AANTALBESTELLINGEN; i++)
             {
-                int randbereidtijd = new Random().Next(MINIMALE_BEREIDINGSTIJD, MAXIMALE_BEREIDINGSTIJD);
-                int tafelnummer = new Random().Next(1, AANTALTAFELS);
-                Bestelling bestelling = new Bestelling(randbereidtijd, tafelnummer);
+             //  int bestelnummer = new Random().Next(1, AANTALBESTELLINGEN);
+                 tafelnummer = new Random().Next(1, AANTALTAFELS);
+              
+                   bestelling = new Bestelling(i, tafelnummer);
                 bestellingenPerTafel.Add(bestelling);
-                 
+                Console.WriteLine($"Genereer bestelling {i} voor tafel {tafelnummer}");
+
             }
+            Console.WriteLine($"Methode Balie.Genereerbestellingen is beeindigd. Maaltijden kunnen nu worden bereidt.");
+
         }
 
 
@@ -53,15 +75,5 @@ namespace UML_Herkansing
 
     }
 
-    public class BestellingenPerTafel
-    {
-        public BestellingenPerTafel()
-
-        {
-
-
-        }
-
-
-    }
+ 
 }

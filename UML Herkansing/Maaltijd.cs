@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace UML_Herkansing
 {
-    internal class Maaltijd
+    public class Maaltijd
     {
         public int Tafelnummer {  get; set; }
 
 
-        public int getTafelnummer(Bestelling b)
+        public int getTafelnummer()
         {
             return Tafelnummer; 
         }

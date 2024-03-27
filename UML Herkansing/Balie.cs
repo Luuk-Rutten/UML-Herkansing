@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace UML_Herkansing
 {
-    internal class Balie 
+    public class Balie 
     {
-       static List<Bestelling> Bestellingen = new List<Bestelling>();
-       static List<Maaltijd> Maaltijden = new List<Maaltijd>();
-       // static List<BestellingenPerTafel> bestellingenPerTafel = new List<BestellingenPerTafel>();
+       public List<Bestelling> Bestellingen = new List<Bestelling>();
+
+       public List<Maaltijd> Maaltijden = new List<Maaltijd>();
+
+        public int AANTALTAFELS = 10;
 
 
-       public string BalieLocatie { get; set; }
-        public static int bestelnr { get; set; }
-        public static int tafelnr { get; set; }
+        public string BalieLocatie { get; set; }
+        public int bestelnr { get; set; }
+        public int tafelnummer { get; set; }
 
 
 
@@ -46,31 +48,31 @@ namespace UML_Herkansing
                 return true;
         }
        
-        public static void GenereerBestellingen(List<BestellingenPerTafel> bestellingenPerTafel)
+        public void GenereerBestellingen(List<Bestelling> bestellingenPerTafel)
         {
             for (int i = 0; i < bestellingenPerTafel.Count; i++)
             {
-               Bestelling bestelling = new Bestelling(bestelnr, tafelnr);
+                // ik heb hier dezelfde Random functie gebruikt als in Restaurant, maar volgens mij klopt dit niet
+                //ik kom er alleen niet uit hoe ik het tafelnummer 
+
+                tafelnummer = new Random().Next(1, AANTALTAFELS);
+                Bestelling bestelling = new Bestelling(i, tafelnummer);
+                Console.WriteLine($"Kok bereidt maaltijd {i} voor tafel {tafelnummer}");
+
+
                 PlaatsBestelling(bestelling);
 
-              Console.WriteLine(bestellingenPerTafel[i]);
             }
         }
 
-        public void PakBestelling()
+
+
+        public void PlaatsBestelling(Bestelling b)
         {
-           var bestelling = Bestellingen.FirstOrDefault();
-            Bestellingen.Remove(bestelling);
+            Bestellingen.Add(b);
+
         }
 
-        public static void PlaatsBestelling(Bestelling b)
-        {
-            Bestellingen.Add(b);    
-        }
-        public static void PlaatsMaaltijd(Maaltijd m)
-        {
-            Maaltijden.Add(m);
-        }
 
         public int ToonAantalBestellingen()
         {
@@ -79,6 +81,20 @@ namespace UML_Herkansing
         public int ToonAantalMaaltijden()
         {
             return Maaltijden.Count;
+        }
+
+        public void PlaatsMaaltijd(Maaltijd m)
+        {
+            Maaltijden.Add(m);
+
+        }
+        public Bestelling PakBestelling()
+        {
+            var bestelling = Bestellingen.FirstOrDefault();
+
+            Bestellingen.Remove(bestelling);
+
+            return bestelling;
         }
     }
 
